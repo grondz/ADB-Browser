@@ -1,0 +1,183 @@
+{
+  "name": "adb-browser",
+  "displayName": "adb-browser",
+  "description": "Android device filesystem browser",
+  "version": "0.0.1",
+  "icon": "resources/adb-view-logo.png",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "adb-browser",
+          "title": "ADB Browser",
+          "icon": "resources/adb_white.svg"
+        }
+      ]
+    },
+    "views": {
+      "adb-browser": [
+        {
+          "id": "adb-browser-view",
+          "name": "Android Filesystem Browser"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "adb-browser-view",
+        "contents": "No device open.\n[Open device](command:adb-browser.openDevice)"
+      }
+    ],
+    "commands": [
+      {
+        "command": "adb-browser.openDevice",
+        "title": "Open Android Device",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "adb-browser.pushItemsToDevice",
+        "title": "Push items to device",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "adb-browser.pullFile",
+        "title": "Pull file from device",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "adb-browser.pullDirectory",
+        "title": "Pull directory from device",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "adb-browser.makeDirectory",
+        "title": "Make directory",
+        "icon": "$(file-directory-create)"
+      },
+      {
+        "command": "adb-browser.removeDirectory",
+        "title": "Delete directory recursively",
+        "icon": "$(notebook-delete-cell)"
+      },
+      {
+        "command": "adb-browser.removeFile",
+        "title": "Delete file",
+        "icon": "$(notebook-delete-cell)"
+      },
+      {
+        "command": "adb-browser.renameItemOnDevice",
+        "title": "Rename item on device",
+        "icon": "$(notebook-delete-cell)"
+      },
+      {
+        "command": "adb-browser.startDeviceFileOperation",
+        "title": "Start device file operation",
+        "icon": "$(notebook-delete-cell)"
+      },
+      {
+        "command": "adb-browser.moveItemOnDevice",
+        "title": "Move item on device",
+        "icon": "$(notebook-delete-cell)"
+      },
+      {
+        "command": "adb-browser.copyItemOnDevice",
+        "title": "Copy item on device",
+        "icon": "$(notebook-delete-cell)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "adb-browser.openDevice",
+          "when": "view == adb-browser-view",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "adb-browser.pushItemsToDevice",
+          "when": "view == adb-browser-view && viewItem == directory",
+          "group": "context"
+        },
+        {
+          "command": "adb-browser.pullFile",
+          "when": "view == adb-browser-view && viewItem == file",
+          "group": "context"
+        },
+        {
+          "command": "adb-browser.pullDirectory",
+          "when": "view == adb-browser-view  && viewItem == directory",
+          "group": "context"
+        },
+        {
+          "command": "adb-browser.makeDirectory",
+          "when": "view == adb-browser-view && viewItem == directory",
+          "group": "context"
+        },
+        {
+          "command": "adb-browser.removeDirectory",
+          "when": "view == adb-browser-view && viewItem == directory",
+          "group": "context"
+        },
+        {
+          "command": "adb-browser.removeFile",
+          "when": "view == adb-browser-view && viewItem == file",
+          "group": "context"
+        },
+        {
+          "command": "adb-browser.renameItemOnDevice",
+          "when": "view == adb-browser-view",
+          "group": "context"
+        },
+        {
+          "command": "adb-browser.startDeviceFileOperation",
+          "when": "view == adb-browser-view",
+          "group": "context"
+        },
+        {
+          "command": "adb-browser.moveItemOnDevice",
+          "when": "view == adb-browser-view && viewItem == directory",
+          "group": "context"
+        },
+        {
+          "command": "adb-browser.copyItemOnDevice",
+          "when": "view == adb-browser-view && viewItem == directory",
+          "group": "context"
+        }
+      ]      
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/bluebird": "^3.5.38",
+    "@types/glob": "^8.0.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/node-forge": "^1.3.1",
+    "@types/vscode": "^1.75.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "@vscode/test-electron": "^2.2.0",
+    "eslint": "^8.28.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.1.0",
+    "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "@devicefarmer/adbkit": "^3.2.3"
+  }
+}
